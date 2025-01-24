@@ -9,6 +9,4 @@ export const MemberSchema = z.object({
     .transform((flags) => flags ?? ['default']),
 });
 
-export class MemberDTO extends createZodDto(MemberSchema) {}
-
-export type MemberDTOType = z.infer<typeof MemberSchema>;
+export type MemberDTO = z.infer<typeof MemberSchema>;

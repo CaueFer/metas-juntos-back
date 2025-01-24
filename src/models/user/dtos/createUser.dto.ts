@@ -13,7 +13,4 @@ export const CreateUserSchema = z.object({
   userImg: z.string().url('Invalid URL format').optional().or(z.literal('')),
 });
 
-export class CreateUserDTO extends createZodDto(CreateUserSchema) {}
-
-
-export type CreateUserDTOType = z.infer<typeof CreateUserSchema>;
+export type CreateUserDTO = z.infer<typeof CreateUserSchema>;

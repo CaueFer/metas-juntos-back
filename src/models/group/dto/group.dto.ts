@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+
 import { z } from 'zod';
 import { MemberSchema } from '../../member/dto/member.dto';
 
@@ -21,4 +21,4 @@ const GroupSchema = z.object({
     .max(15, 'There can be no more than 100 members in a group'),
 });
 
-class GroupDTO extends createZodDto(GroupSchema) {}
+export type GroupDTO = z.infer<typeof GroupSchema>;

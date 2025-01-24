@@ -1,10 +1,5 @@
 import { Body, Injectable } from '@nestjs/common';
-import {
-  CreateUserDTO,
-  CreateUserDTOType,
-} from 'src/models/user/dtos/createUser.dto';
-import { UserDTO } from 'src/models/user/dtos/user.dto';
-import { mockUsers } from 'src/models/user/mock/user.mock';
+import { CreateUserDTO } from 'src/models/user/dtos/createUser.dto';
 import { Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
@@ -12,6 +7,7 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class UserService {
+
   async getAllUsers(res: Response): Promise<Response> {
     try {
       const users = await prisma.user.findMany();
@@ -27,7 +23,7 @@ export class UserService {
     }
   }
 
-  async createUser(user: CreateUserDTOType, res: Response): Promise<Response> {
+  async createUser(user: CreateUserDTO, res: Response): Promise<Response> {
     try {
       const existUser = await prisma.user.findFirst({
         where: {
