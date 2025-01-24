@@ -14,3 +14,6 @@ export const CreateUserSchema = z.object({
 });
 
 export class CreateUserDTO extends createZodDto(CreateUserSchema) {}
+
+
+export type CreateUserDTOType = z.infer<typeof CreateUserSchema>;
