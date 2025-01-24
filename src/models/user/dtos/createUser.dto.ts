@@ -1,8 +1,7 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
-export const UserSchema = z.object({
-  userId: z.string().uuid('Invalid userId format, expected UUID'),
+export const CreateUserSchema = z.object({
   userName: z
     .string()
     .min(5, 'Name must have at least 5 characters')
@@ -14,4 +13,4 @@ export const UserSchema = z.object({
   userImg: z.string().url('Invalid URL format').optional().or(z.literal('')),
 });
 
-export class UserDTO extends createZodDto(UserSchema) {}
+export class CreateUserDTO extends createZodDto(CreateUserSchema) {}
