@@ -1,7 +1,7 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
-export const CreateUserSchema = z.object({
+const CreateUserSchema = z.object({
   userName: z
     .string()
     .min(5, 'Name must have at least 5 characters')
