@@ -7,7 +7,7 @@ import { LogInUserDTO } from 'src/models/user/dtos/logInUser.dto';
 export class AuthController {
   constructor(private readonly _authService: AuthService) {}
 
-  @Post('logIn')
+  @Post('login')
   async login(@Body('email') email: string, @Res() res: Response) {
     await this._authService.generateOtp(email, res);
   }

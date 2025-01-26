@@ -1,3 +1,3 @@
-export const generateOtp = (): string => {
+export const generateOtpCode = (): string => {
   return Math.floor(1000 + Math.random() * 9000).toString();
 };

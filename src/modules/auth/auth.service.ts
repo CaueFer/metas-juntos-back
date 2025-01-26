@@ -1,16 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Response } from 'express';
-
-import crypto from 'node:crypto';
+import { generateOtpCode } from 'src/common/utils/otp-generator.util';
+import { EmailService } from '../email/email.service';
 
 const prisma = new PrismaClient();
 
 @Injectable()
 export class AuthService {
+
+  constructor(private _emailService: EmailService){}
+
   async generateOtp(email: string, res: Response): Promise<Response> {
     try {
-      const otpCode = crypto.randomInt(1000, 9999).toString();
+      const otpCode = generateOtpCode();
 
       const expiresAt = new Date();
       expiresAt.setMinutes(expiresAt.getMinutes() + 5);
@@ -28,7 +31,7 @@ export class AuthService {
         },
       });
 
-      await this.sendOtpEmail(email, otpCode);
+      await this._emailService.sendEmailOtpCode(email, otpCode)
 
       return res.status(200).json({
         message: 'OTP Code Sent',
@@ -41,10 +44,6 @@ export class AuthService {
         error: error,
       });
     }
-  }
-
-  private async sendOtpEmail(email: string, otpCode: string) {
-    console.log(`Enviando OTP para ${email}: ${otpCode}`);
   }
 
   async verifyOtp(
