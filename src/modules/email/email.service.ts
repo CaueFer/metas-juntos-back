@@ -6,6 +6,8 @@ export class EmailService {
   private transporter: nodemailer.Transporter;
 
   constructor() {
+
+    // MOCK PARA TESTAR O EMAIL SENDER
     this.transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,

@@ -8,8 +8,7 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class AuthService {
-
-  constructor(private _emailService: EmailService){}
+  constructor(private _emailService: EmailService) {}
 
   async generateOtp(email: string, res: Response): Promise<Response> {
     try {
@@ -31,7 +30,7 @@ export class AuthService {
         },
       });
 
-      await this._emailService.sendEmailOtpCode(email, otpCode)
+      await this._emailService.sendEmailOtpCode(email, otpCode);
 
       return res.status(200).json({
         message: 'OTP Code Sent',
@@ -51,6 +50,12 @@ export class AuthService {
     receivedOtp: string,
     res: Response,
   ): Promise<Response> {
+    if (!email || !receivedOtp) {
+      return res.status(400).json({
+        message: 'Email & OtpCode is Required',
+      });
+    }
+
     try {
       const otp = await prisma.otp.findFirst({
         where: {
